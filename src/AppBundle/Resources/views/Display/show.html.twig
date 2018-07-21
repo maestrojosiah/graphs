@@ -1,0 +1,37 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Show Charts{% endblock %}
+{% block stylesheets %}
+{% set contnr_height = ((graph.maximum / graph.xInterval) * 100) + 50 %}
+{% set measure_height = ((graph.maximum / graph.xInterval) * 100) %}
+{% set contnr_width = (graph.timelines|length * 52) + (graph.grouping * 20) + 150 %}
+{% set contnr_bottom_margin = graph.xLabelHeight + 100 %}
+{% include 'templates/css.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    <div class="modal modal-success fade" id="page_modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Graph Details</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+            {% include 'templates/charts_menu.html.twig' %}
+            <div class="col-md-6">
+            <p>Your graphs are ready! Choose the graph you want to see from the left side bar. :) </p>
+          </div>
+          </div>
+          <div class="modal-footer">
+            <p>Your graphs.</p>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>    
+
+{% endblock %}
+{% block javascripts %}
+{% endblock %}	

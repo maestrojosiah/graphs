@@ -1,0 +1,264 @@
+<style>
+/****************************vertical bar graph styles ******************************/
+.chart{position:relative;width:500px;height:250px}.hold,.pie{height:200px;width:200px;position:absolute}.hold{clip:rect(0,200px,200px,100px);left:300px}.pie{clip:rect(0,100px,200px,0);-moz-border-radius:100px;-webkit-border-radius:100px;border-radius:100px}.hold.gt50{clip:rect(auto,auto,auto,auto)}.pie.fill{-moz-transform:rotate(180deg)!important;-webkit-transform:rotate(180deg)!important;-o-transform:rotate(180deg)!important;transform:rotate(180deg)!important}.legend{clear:left;float:left;font-size:12px;border:2px solid grey;padding:5px;width:250px}.legend DIV{margin:3px 0}.legend span{float:right;padding-left:.5em}body{display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:fira-sans-2,Verdana,sans-serif}#q-graph caption{caption-side:top;width:600px;text-transform:uppercase;letter-spacing:.5px;top:-40px;position:relative;z-index:10;font-weight:700;text-align:center!important}#q-graph td,#q-graph th,#q-graph tr{position:absolute;bottom:0;width:150px;z-index:2;margin:0;padding:0;text-align:center}#q-graph td{transition:all .3s ease}#q-graph td:hover{background-color:#4d4d4d;opacity:.9;color:#fff}#q-graph thead tr{left:100%;top:50%;bottom:auto;margin:-2.5em 0 0 5em}#q-graph thead th{width:7.5em;height:auto;padding:.5em 1em}#q-graph thead th.sent{top:0;left:0;line-height:2}#q-graph thead th.paid{top:2.75em;line-height:2;left:0}#q-graph #q1{left:0}#q-graph #q2{left:150px}#q-graph #q3{left:300px}#q-graph #q4{left:450px;border-right:none}#q-graph tbody th{bottom:-1.75em;vertical-align:top;font-weight:400;color:#333}#q-graph .bar{width:60px;border:1px solid;border-bottom:none;color:#000}#q-graph .bar p{margin:5px 0 0;padding:0;opacity:.4}#q-graph .paid,#q-graph .sent{border-color:transparent}#ticks .tick{position:relative;border-bottom:1px dotted #C4C4C4;width:600px}#ticks .tick p{position:absolute;left:-5em;top:-.8em;margin:0 0 0 .5em}
+.contnr {
+    display:table-cell;
+    position:relative;
+    vertical-align:bottom;
+    width: {{contnr_width}}px; 
+    height: {{contnr_height}}px;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+    margin-left: 50px;
+    margin-bottom: {{contnr_bottom_margin}}px;
+    display:inline-block;
+    background: repeating-linear-gradient(to top, #ddd, #ddd 1px, #fff 1px, #fff 100px);
+}
+.bar {
+    display: inline-block;
+    border:1px solid black; 
+}
+.measure{
+  height:{{measure_height}}px;
+  width:50px;
+  float:left;
+  margin-left:-60px;
+  margin-bottom:-60px;
+    display: inline-block;
+    position:absolute; bottom:0;
+    position:relative;
+    vertical-align:bottom;
+
+}
+.rotate {
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  width: 1.5em;
+}
+
+.rotate p {
+     -moz-transform: rotate(-{{graph.angle}}.0deg);  /* FF3.5+ */
+       -o-transform: rotate(-{{graph.angle}}.0deg);  /* Opera 10.5 */
+  -webkit-transform: rotate(-{{graph.angle}}.0deg);  /* Saf3.1+, Chrome */
+             filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083);  /* IE6,IE7 */
+         -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)"; /* IE8 */
+         margin-left: -10em;
+         margin-right: -10em;
+}
+.circle {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+
+/****************************horizontal bar graph styles ******************************/
+{% set interval = graph.xInterval %}
+{% set steps = graph.maximum / interval %}
+
+{% set horizontal_bar_width = (steps * 100) + 135 %}
+
+dl {
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  width: 100%;
+  max-width: {{horizontal_bar_width}}px;
+  position: relative;
+  padding: 20px;
+}
+
+dt {
+  align-self: flex-start;
+  width: 100%;
+  font-weight: 700;
+  display: block;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 700;
+  margin-bottom: 20px;
+  margin-left: 130px;
+}
+
+.text {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  width: 130px;
+  background-color: white;
+  position: absolute;
+  left: 0;
+  justify-content: flex-end;
+}
+
+.percentage:after {
+  content: "";
+  display: block;
+  background-color: #3d9970;
+  width: 50px;
+  margin-bottom: 10px;
+  height: 90%;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  transition: background-color .3s ease;
+  cursor: pointer;
+}
+
+.percentage:hover:after, .percentage:focus:after {
+  background-color: #aaa;
+}
+
+
+html, body {
+  font-family: "fira-sans-2",sans-serif;
+  color: #333;
+}
+{% for timeline in timelines %}
+{% set relative_width = timeline.figure|round / graph.xInterval * 100 %}
+  .percentage-{{timeline.figure|round}}:after {
+      {% set value = relative_width ~ 'px' %}
+      width: {{value}};
+  }
+{% endfor %}
+
+
+.percentage {
+  font-size: .8em;
+  line-height: 1;
+  text-transform: uppercase;
+  width: 100%;
+  height: 40px;
+  margin-left: 130px;
+  background: repeating-linear-gradient(to right, #ddd, #ddd 1px, #fff 1px, #fff 100px);
+}
+
+/****************************table bar graph styles ******************************/
+{% set table_width = (graph.timelines|length * 62) + (graph.grouping * 20) + 150 %}
+{% set table_height = ((graph.maximum / graph.xInterval) * 100) %}
+
+#q-graph {
+  display: block;
+  /* fixes layout wonkiness in FF1.5 */
+  position: relative;
+  width: 600px;
+  height: {{table_height}}px;
+  margin: 1.1em 0 0;
+  padding: 0;
+  background: transparent;
+  font-size: 11px;
+}
+
+#q-graph tbody tr {
+  height: {{table_height}}px;
+  padding-top: 2px;
+  color: #AAA;
+}
+
+#ticks {
+  position: relative;
+  top: -{{table_height}}px;
+  left: 2px;
+  width: {{table_width}}px;
+  height: 300px;
+  z-index: 1;
+  margin-bottom: -300px;
+  font-size: 10px;
+  font-family: "fira-sans-2", Verdana, sans-serif;
+}
+
+#ticks .tick {
+  position: relative;
+  border-bottom: 1px dotted #C4C4C4;
+  width: {{table_width}}px;
+}
+
+#key_div{
+  width:{{table_width}}px;
+}
+
+/*****************************pie charts styles***********************/
+{% set total_score = score['score'] %}
+{% set accumulative = 0 %}
+{% for timeline in timelines %}
+  #p_{{timeline.id}} {
+    -moz-transform:rotate({{accumulative}}deg);
+    -webkit-transform:rotate({{accumulative}}deg);
+    -o-transform:rotate({{accumulative}}deg);
+    transform:rotate({{accumulative}}deg);
+  }
+
+  {% set degree = timeline.figure / total_score * 360 %}
+
+  #p_{{timeline.id}} .pie {
+    background-color:{{timeline.color}};
+    border-color:{{timeline.color}};
+    -moz-transform:rotate({{degree|round(2)}}deg);
+    -webkit-transform:rotate({{degree|round(2)}}deg);
+    -o-transform:rotate({{degree|round(2)}}deg);
+    transform:rotate({{degree|round(2)}}deg);
+  }
+
+  {% set accumulative = accumulative + degree|round(2) %}
+
+  #p_{{timeline.id}}-lbl {
+    border-left:{{timeline.color}} solid 1em;
+    padding-left:.5em;
+  }
+
+  #p_{{timeline.id}}:after {
+    content: "";
+    position: absolute;
+    left: 40px;
+    top: 30px;
+    z-index: -1;
+  }
+
+{% endfor %}
+
+{% for chunked_timeline in chunked_timelines %}
+  {% set index = loop.index %}
+  {% set sum = 0 %}
+  {% for timeline in chunked_timeline %} 
+    {% set sum = sum + timeline.figure %} 
+  {% endfor %}
+{% for timeline in chunked_timeline %}  
+
+  #g_{{timeline.id}}_{{index}} {
+    -moz-transform:rotate({{accumulative}}deg);
+    -webkit-transform:rotate({{accumulative}}deg);
+    -o-transform:rotate({{accumulative}}deg);
+    transform:rotate({{accumulative}}deg);
+  }
+
+  {% set degree = timeline.figure / sum * 360 %}
+
+  #g_{{timeline.id}}_{{index}} .pie {
+    background-color:{{timeline.color}};
+    border-color:{{timeline.color}};
+    -moz-transform:rotate({{degree|round(2)}}deg);
+    -webkit-transform:rotate({{degree|round(2)}}deg);
+    -o-transform:rotate({{degree|round(2)}}deg);
+    transform:rotate({{degree|round(2)}}deg);
+  }
+
+  {% set accumulative = accumulative + degree|round(2) %}
+
+  #g_{{timeline.id}}_{{index}}-lbl {
+    border-left:{{timeline.color}} solid 1em;
+    padding-left:.5em;
+  }
+
+  #g_{{timeline.id}}_{{index}}:after {
+    content: "";
+    position: absolute;
+    left: 40px;
+    top: 30px;
+    z-index: -1;
+  }
+
+{% endfor %}
+{% endfor %}
+</style>

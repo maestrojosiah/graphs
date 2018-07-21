@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="modal modal-success fade" id="page_modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Graph Details</h4>
+          </div>
+          <div class="modal-body">
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Title</th>
+                        <td>{{ graph.title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Yaxistitle</th>
+                        <td>{{ graph.yAxisTitle }}</td>
+                    </tr>
+                    <tr>
+                        <th>Xaxistitle</th>
+                        <td>{{ graph.xAxisTitle }}</td>
+                    </tr>
+                    <tr>
+                        <th>Xinterval</th>
+                        <td>{{ graph.xInterval }}</td>
+                    </tr>
+                    <tr>
+                        <th>Grouping</th>
+                        <td>{{ graph.grouping }}</td>
+                    </tr>
+                    <tr>
+                        <th>Maximum</th>
+                        <td>{{ graph.maximum }}</td>
+                    </tr>
+                    <tr>
+                        <th>Xlabelheight</th>
+                        <td>{{ graph.xLabelHeight }}</td>
+                    </tr>
+                    <tr>
+                        <th>Angle</th>
+                        <td>{{ graph.angle }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul>
+                <li>
+                    <a href="{{ path('graph_index') }}">Back to the list</a>
+                </li>
+                <li>
+                    <a href="{{ path('graph_edit', { 'id': graph.id }) }}">Edit</a>
+                </li>
+                <li>
+                    {{ form_start(delete_form) }}
+                        <input type="submit" value="Delete">
+                    {{ form_end(delete_form) }}
+                </li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <p>:)</p>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>    
+
+{% endblock %}

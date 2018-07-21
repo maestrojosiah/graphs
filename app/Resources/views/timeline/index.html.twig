@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="modal modal-success fade" id="page_modal">
+      <div class="modal-dialog">
+        <div class="modal-content" style="width:50%; margin:auto;">
+          <div class="modal-header">
+            <h4 class="modal-title">Add Graph Entries</h4>
+          </div>
+          <div class="modal-body">
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Figure</th>
+                        <th>Color</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for timeline in timelines %}
+                    <tr>
+                        <td>{{ timeline.description }}</td>
+                        <td>{{ timeline.figure }}</td>
+                        <td>{{ timeline.color }}</td>
+                        <td>
+                        <div class="btn-group" role="group" aria-label="Action">
+                            <a class="btn btn-primary btn-sm" href="{{ path('timeline_show', { 'id': timeline.id, 'graph_id': graph.id }) }}">show</a>
+                            <a class="btn btn-info btn-sm" href="{{ path('timeline_edit', { 'id': timeline.id }) }}">edit</a>
+                            <a class="btn btn-success btn-sm" href="{{ path('graphs_show', { 'graph_id': graph.id }) }}">graphs</a>
+                        </div>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <ul>
+                <li>
+                    <a href="{{ path('timeline_new', {'graph_id': graph.id}) }}">Create a new timeline</a>
+                </li>
+            </ul>
+
+          </div>
+          <div class="modal-footer">
+            <a href="{{path('graphs_show', {'graph_id': graph.id })}}" class="btn btn-primary btn-lg pull-left">See your graph</a>
+            <p>This is the last step. Add all your data.</p>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>    
+
+{% endblock %}

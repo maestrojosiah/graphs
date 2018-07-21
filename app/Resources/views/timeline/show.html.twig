@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="modal modal-success fade" id="page_modal">
+      <div class="modal-dialog">
+        <div class="modal-content" style="width:50%; margin:auto;">
+          <div class="modal-header">
+            <h4 class="modal-title">Add Graph Entries</h4>
+          </div>
+          <div class="modal-body">
+
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ timeline.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ timeline.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>Figure</th>
+                        <td>{{ timeline.figure }}</td>
+                    </tr>
+                    <tr>
+                        <th>Color</th>
+                        <td>{{ timeline.color }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <ul>
+                <li>
+                    <a href="{{ path('timeline_index', {'graph_id': graph.id}) }}">Back to the list</a>
+                </li>
+                <li>
+                    <a href="{{ path('timeline_edit', { 'id': timeline.id }) }}">Edit</a>
+                </li>
+                <li>
+                    {{ form_start(delete_form) }}
+                        <input type="submit" value="Delete">
+                    {{ form_end(delete_form) }}
+                </li>
+            </ul>
+
+          </div>
+          <div class="modal-footer">
+            <a href="{{path('graphs_show', {'graph_id': graph.id })}}" class="btn btn-primary btn-lg pull-left">See your graph</a>
+            <p>:)</p>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>    
+
+{% endblock %}

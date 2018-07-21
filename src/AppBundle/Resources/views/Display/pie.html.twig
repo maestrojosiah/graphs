@@ -1,0 +1,90 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Show Charts{% endblock %}
+{% block stylesheets %}
+{% set contnr_height = ((graph.maximum / graph.xInterval) * 100) + 50 %}
+{% set measure_height = ((graph.maximum / graph.xInterval) * 100) %}
+{% set contnr_width = (graph.timelines|length * 52) + (graph.grouping * 20) + 150 %}
+{% set contnr_bottom_margin = graph.xLabelHeight + 100 %}
+{% include 'templates/css.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    <div class="modal modal-success fade" id="page_modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Graph Details</h4>
+          </div>
+          <div class="modal-body">
+
+            <div class="row">
+              
+            {% include 'templates/charts_menu.html.twig' %}
+
+              {# start table bar graph #}
+              <div class="col-md-9">
+
+              {# start pie chart #}
+
+                {# splitted pie charts #}
+                <div style="margin-left:100px;">
+                {% if graph.grouping != 0 %} <h5>In your settings, you grouped this graph. Here are the pie charts in groups.</h5>{% endif %}
+                {% for chunked_timeline in chunked_timelines %}
+                  {% set index = loop.index %}
+                    {% set sum = 0 %}
+                    {% for timeline in chunked_timeline %} 
+                      {% set sum = sum + timeline.figure %} 
+                    {% endfor %}
+                  <div class="chart">
+                    <h2>Group {{index}}:  ____________</h2>
+                    <div class="legend">
+                    {% for timeline in chunked_timeline %}  
+                      {% set degree = timeline.figure / sum * 360 %}
+                        <div id="g_{{timeline.id}}_{{index}}-lbl">{{timeline.description}} <span>{{degree|round(2)}}% ({{timeline.figure}})</span></div>
+                    {% endfor %}
+                    </div>
+                  {% for timeline in chunked_timeline %}  
+                    <div id="g_{{timeline.id}}_{{index}}" class="hold">
+                      <div class="pie"></div>
+                    </div>
+                  {% endfor %}
+                  </div>
+                {% endfor %}
+
+
+                {# one pie chart #}
+                <div class="chart">
+                {% if graph.grouping != 0 %} <h5>And here is one pie chart with all the data..</h5>{% endif %}
+                  <h4>{{graph.title}}</h4>
+                  <div class="legend">
+                  {% for timeline in timelines %}  
+                    {% set degree = timeline.figure / score['score'] * 360 %}
+                      <div id="p_{{timeline.id}}-lbl">{{timeline.description}} <span>{{degree|round(2)}}% ({{timeline.figure}})</span></div>
+                  {% endfor %}
+                  </div>
+                {% for timeline in timelines %}  
+                  <div id="p_{{timeline.id}}" class="hold">
+                    <div class="pie"></div>
+                  </div>
+                {% endfor %}
+                </div>
+                </div>
+              </div>
+            </div>
+            {# end piechart #}
+
+          </div>
+          <div class="modal-footer">
+            <p>Your graphs.</p>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>    
+
+
+{% endblock %}
+{% block javascripts %}
+{% endblock %}	

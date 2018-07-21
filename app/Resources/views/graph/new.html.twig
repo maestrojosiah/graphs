@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="modal modal-success fade" id="page_modal">
+      <div class="modal-dialog">
+        <div class="modal-content" style="width:50%; margin:auto;">
+          <div class="modal-header">
+            <h4 class="modal-title">Graph Details</h4>
+          </div>
+          <div class="modal-body">
+            {{ form_start(form) }}
+              <div class="form-group">
+                <label>Graph Title</label>
+                {{ form_row(form.title, {'attr': {'class': 'form-control', 'placeholder': 'Graph Title' }}) }}
+              </div>
+              <div class="form-group">
+                <label>Y-Axis Title</label>
+                {{ form_row(form.xAxisTitle, {'attr': {'class': 'form-control', 'placeholder': 'e.g Exam Scores',  'aria-describedby':'helpBlockYTitle' }}) }}
+                <p class="help-block" id="helpBlockYTitle">What would you like to be displayed on the vertical line (y-axis)?</p>
+              </div>
+              <div class="form-group">
+                <label>X-Axis Title</label>
+                {{ form_row(form.yAxisTitle, {'attr': {'class': 'form-control', 'placeholder': 'e.g Subjects',  'aria-describedby':'helpBlockXTitle' }}) }}
+                <p class="help-block" id="helpBlockXTitle">What would you like to be displayed on the horizontal line (x-axis)?</p>
+              </div>
+              <div class="form-group">
+                <label>Y Interval</label>
+                {{ form_row(form.xInterval, {'attr': {'class': 'form-control', 'placeholder': 'e.g 100',  'aria-describedby':'helpBlockYInterval' }}) }}
+                <p class="help-block" id="helpBlockYInterval">What would you like to be the interval in figures for y axis?</p>
+              </div>
+              <div class="form-group">
+                <label>Grouping</label>
+                {{ form_row(form.grouping, {'attr': {'class': 'form-control', 'placeholder': 'Eg. 4', 'value': '0',  'aria-describedby':'helpBlockGrouping' }}) }}
+                <p class="help-block" id="helpBlockGrouping">Would you like to group your graph into portions? if not, '0' is ok.</p>
+              </div>
+              <div class="form-group">
+                <label>Y-Axis Maximum Figure</label>
+                {{ form_row(form.maximum, {'attr': {'class': 'form-control', 'placeholder': 'e.g 500',  'aria-describedby':'helpBlockYMax' }}) }}
+                <p class="help-block" id="helpBlockYMax">What would you like to be the maximum figure on the y-axis?</p>
+              </div>
+              <div class="form-group">
+                <label>X-Axis Label Height</label>
+                {{ form_row(form.xLabelHeight, {'attr': {'class': 'form-control', 'placeholder': 'X-Axis Label Height', 'value': '80',  'aria-describedby':'helpBlockXHeight' }}) }}
+                <p class="help-block" id="helpBlockXHeight">You need some spacing below the graph? Not sure? leave it at 80.</p>
+              </div>
+              <div class="form-group">
+                <label>X-Axis Incline Angle</label>
+                {{ form_row(form.angle, {'attr': {'class': 'form-control', 'placeholder': 'X-Axis Incline Angle', 'value': '70',  'aria-describedby':'helpBlockXIncline' }}) }}
+                <p class="help-block" id="helpBlockXIncline">Would you like to rotate the x-axis angle? Try 70 or 0 for no rotation</p>
+              </div>
+              <button type="submit" class="btn btn-default">Create Graph</button>
+            {{ form_end(form) }}
+          </div>
+          <div class="modal-footer">
+            {% include 'templates/links.html.twig' %}
+            <p>Next, you'll input the graph data.</p>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>    
+{% endblock %}
+{% block javascripts %}
+  <script type="text/javascript">
+    $('.modal').on('shown.bs.modal', function() {
+      $('#appbundle_graph_title').focus();
+    });
+  </script>
+{% endblock %}

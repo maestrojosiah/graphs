@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="modal modal-success fade" id="page_modal">
+      <div class="modal-dialog">
+        <div class="modal-content" style="width:50%; margin:auto;">
+          <div class="modal-header">
+            <h4 class="modal-title">Create Account to Use This App.</h4>
+            Have an account? <a href="{{path('login')}}">Login</a>
+          </div>
+          <div class="modal-body">
+			{{ form_start(form) }}
+
+			  <div class="form-group">
+			    <label for="firstName" class="col-sm-2 control-label">First Name</label>
+			    <div class="col-sm-10">
+		    		{{ form_row(form.f_name, {'attr': {'class': 'form-control', 'placeholder': 'First Name', 'id': 'firstname' }}) }}
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="lastName" class="col-sm-2 control-label">Last Name</label>
+			    <div class="col-sm-10">
+		    		{{ form_row(form.l_name, {'attr': {'class': 'form-control', 'placeholder': 'Last Name', 'id': 'lastname' }}) }}
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="username" class="col-sm-2 control-label">Username</label>
+			    <div class="col-sm-10">
+		    		{{ form_row(form.username, {'attr': {'class': 'form-control', 'placeholder': 'Username', 'id': 'username' }}) }}
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="email" class="col-sm-2 control-label">Email</label>
+			    <div class="col-sm-10">
+		    		{{ form_row(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email', 'id': 'email' }}) }}
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+			    <div class="col-sm-10">
+		    		{{ form_row(form.plainPassword.first, {'attr': {'class': 'form-control', 'id': 'password' }}) }}
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="inputPassword3" class="col-sm-2 control-label">Repeat Password</label>
+			    <div class="col-sm-10">
+		    		{{ form_row(form.plainPassword.second, {'attr': {'class': 'form-control', 'id': 'passwrdrepeat' }}) }}
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <div class="col-sm-offset-2 col-sm-10">
+			      <button type="submit" class="btn btn-default">Sign Up</button>
+			    </div>
+			  </div>
+
+			{{ form_end(form) }}
+
+          </div>
+          <div class="modal-footer">
+            <p>Please create an account to start using this free app.</p>
+            <p><a href="{{path('homepage')}}">Home</a></p>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>    
+{% endblock %}

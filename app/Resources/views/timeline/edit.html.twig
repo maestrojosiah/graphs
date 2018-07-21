@@ -1,0 +1,63 @@
+
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+
+ <link href="{{ asset('spectrum/spectrum.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="modal modal-success fade" id="page_modal">
+      <div class="modal-dialog">
+        <div class="modal-content" style="width:50%; margin:auto;">
+          <div class="modal-header">
+            <h4 class="modal-title">Edit Graph Entries</h4>
+          </div>
+          <div class="modal-body">
+            {{ form_start(edit_form) }}
+              <div class="form-group">
+                <label>Entry Description</label>
+                {{ form_row(edit_form.description, {'attr': {'class': 'form-control', 'placeholder': 'e.g Maths',  'aria-describedby':'helpBlockDesc' }}) }}
+                <p class="help-block" id="helpBlockDesc">This is the text that will be displayed below the bar on the x-axis.</p>
+              </div>
+              <div class="form-group">
+                <label>Actual Figure</label>
+                {{ form_row(edit_form.figure, {'attr': {'class': 'form-control', 'placeholder': 'e.g 50',  'aria-describedby':'helpBlockFigure' }}) }}
+                <p class="help-block" id="helpBlockFigure">Write here the figure that you want displayed or shown.</p>
+              </div>
+              <div class="form-group">
+                <label>Color</label>
+                {{ form_row(edit_form.color, {'attr': {'class': 'form-control', 'placeholder': 'Type a color name or pick below',  'aria-describedby':'helpBlockColor' }}) }}
+                <p class="help-block" id="helpBlockColor">What color would you like to represent this entry?</p>
+              </div>
+              <button type="submit" class="btn btn-default">Edit Entry</button>
+            {{ form_end(edit_form) }}
+          </div>
+          <div class="modal-footer">
+            <a href="{{path('graphs_show', {'graph_id': graph.id })}}" class="btn btn-primary btn-lg pull-left">See your graph</a>
+            <p>This is the last step. Add all your data.</p>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>    
+{% endblock %}
+{% block javascripts %}
+  <script type="text/javascript">
+  $('.modal').on('shown.bs.modal', function() {
+    $('#appbundle_timeline_description').focus();
+  });
+  </script>
+
+<script src="{{ asset('spectrum/spectrum.js') }}"></script>
+<script>
+$("#appbundle_timeline_color").spectrum({
+    preferredFormat: "hex",
+    showInput: true,
+    showPalette: true,
+    palette: [["red", "rgba(0, 255, 0, .5)", "rgb(0, 0, 255)"]]
+});
+// Show the original input to demonstrate the value changing when calling `set`
+$("#appbundle_timeline_color").show();
+</script>
+{% endblock %}

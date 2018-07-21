@@ -1,0 +1,203 @@
+.help-block{
+  font-size: 12px;
+}
+
+.modal-dialog {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-content {
+  height: auto;
+  min-height: 100%;
+  border-radius: 0;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog { max-width: none; }
+}
+
+.chart {
+	position:relative;
+	width:500px;
+	height:250px;
+}
+.hold {
+	position:absolute;
+	width:200px;
+	height:200px;
+	clip:rect(0px,200px,200px,100px);
+	left:300px;
+}
+.pie {
+	position:absolute;
+/*	width:100px;
+	height:200px;
+	-moz-border-radius:100px 0 0 100px;
+	-webkit-border-radius:100px 0 0 100px; 
+	border-radius:100px 0 0 100px;
+	-moz-transform-origin:right center;
+	-webkit-transform-origin:right center;
+	transform-origin:right center; */
+	width:200px;
+	height:200px;
+	clip:rect(0px,100px,200px,0px);
+	-moz-border-radius:100px;
+	-webkit-border-radius:100px; 
+	border-radius:100px; 
+}
+.hold.gt50 {
+	clip:rect(auto, auto, auto, auto);
+}
+.pie.fill {
+	-moz-transform:rotate(180deg) !important;
+	-webkit-transform:rotate(180deg) !important;
+	-o-transform:rotate(180deg) !important;
+	transform:rotate(180deg) !important;
+}
+.legend {
+	clear:left;
+	float:left;
+	font-size:12px;
+	border:2px solid grey;
+	padding:5px;
+	width:200px;
+}
+.legend DIV {
+	margin:3px 0;
+}
+.legend span {
+	float:right;
+	padding-left:.5em;
+}
+
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "fira-sans-2", Verdana, sans-serif;
+}
+
+#q-graph caption {
+  caption-side: top;
+  width: 600px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  top: -40px;
+  position: relative;
+  z-index: 10;
+  font-weight: bold;
+  text-align: center!important;
+}
+
+#q-graph tr, #q-graph th, #q-graph td {
+  position: absolute;
+  bottom: 0;
+  width: 150px;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+#q-graph td {
+  transition: all .3s ease;
+}
+
+#q-graph td:hover {
+  background-color: #4d4d4d;
+  opacity: .9;
+  color: white;
+}
+
+#q-graph thead tr {
+  left: 100%;
+  top: 50%;
+  bottom: auto;
+  margin: -2.5em 0 0 5em;
+}
+
+#q-graph thead th {
+  width: 7.5em;
+  height: auto;
+  padding: 0.5em 1em;
+}
+
+#q-graph thead th.sent {
+  top: 0;
+  left: 0;
+  line-height: 2;
+}
+
+#q-graph thead th.paid {
+  top: 2.75em;
+  line-height: 2;
+  left: 0;
+}
+
+
+#q-graph #q1 {
+  left: 0;
+}
+
+#q-graph #q2 {
+  left: 150px;
+}
+
+#q-graph #q3 {
+  left: 300px;
+}
+
+#q-graph #q4 {
+  left: 450px;
+  border-right: none;
+}
+
+#q-graph tbody th {
+  bottom: -1.75em;
+  vertical-align: top;
+  font-weight: normal;
+  color: #333;
+}
+
+#q-graph .bar {
+  width: 60px;
+  border: 1px solid;
+  border-bottom: none;
+  color: #000;
+}
+
+#q-graph .bar p {
+  margin: 5px 0 0;
+  padding: 0;
+  opacity: .4;
+}
+
+#q-graph .sent {
+  /*left: 13px;*/
+  border-color: transparent;
+}
+
+#q-graph .paid {
+  /*left: 77px;*/
+  border-color: transparent;
+}
+
+
+#ticks .tick {
+  position: relative;
+  border-bottom: 1px dotted #C4C4C4;
+  width: 600px;
+}
+
+#ticks .tick p {
+  position: absolute;
+  left: -5em;
+  top: -0.8em;
+  margin: 0 0 0 0.5em;
+}
+

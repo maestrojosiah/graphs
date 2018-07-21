@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Conveniently generate visual graphs in minutes.">
+    <meta name="author" content="Myle-Post Solutions LTD">
+
+    <title>Graphs and Charts Generator</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ asset('css/one-page-wonder.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/pie.css') }}" rel="stylesheet">
+    {% block stylesheets %} {% endblock %}
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="{{path('homepage')}}">MylePost Solutions LTD</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="https://timetabler.mylepostsolutions.co.ke">Timetabler</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://exam.mylepostsolutions.co.ke">ExamPro</a>
+            </li>
+            {% if app.user %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{path('logout')}}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{path('logout')}}">Login</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="masthead text-center text-white">
+      <div class="masthead-content">
+        <div class="container">
+          <h1 class="masthead-heading mb-0">Graphs & Charts </h1>
+          <h2 class="masthead-subheading mb-0">Easy Generator</h2>
+          {% if app.user %}
+            <a href="{{path('graph_new')}}" class="btn btn-primary btn-xl rounded-pill mt-5">Make New Graph</a>
+            <a href="{{path('graph_index')}}" class="btn btn-primary btn-xl rounded-pill mt-5">My Graphs</a>
+          {% else %}
+            <a href="{{path('user_registration')}}" class="btn btn-primary btn-xl rounded-pill mt-5">Start</a>
+          {% endif %}
+        </div>
+      </div>
+    </header>
+{% block body %}
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 order-lg-2">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="img/bar_graph.png" alt="">
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-1">
+            <div class="p-5">
+              <h2 class="display-4">Create Bar Charts...</h2>
+              <p>Two kinds of vertical bar charts with values displayed in the bars. If you want your graph grouped into sections, you can do just that. Choose different colors for different entries.</p>
+              <a href="{{path('graph_new')}}" class="btn btn-primary rounded-pill mt-5">Start One Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="img/pie_chart.png" alt="">
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="p-5">
+              <h2 class="display-4">Create Pie Charts!</h2>
+              <p>Pie charts are generated automatically with every graph created. If the graph is grouped, the pie charts will be generated for each group separately and another one for all the data entered. The key is nicely placed beside the pie chart.</p>
+              <a href="{{path('graph_new')}}" class="btn btn-primary rounded-pill mt-5">Start One Now</a>              
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 order-lg-2">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="img/horizontal_bar_graph.png" alt="">
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-1">
+            <div class="p-5">
+              <h2 class="display-4">Horizontal Bar charts!</h2>
+              <p>Sometimes all you need is a simple chart that doesn't have any different colors. In this case, the horizontal bar graph will do fine. This one doesn't entertain any groupings, It just gives you all your data in one simple graph.</p>
+              <a href="{{path('graph_new')}}" class="btn btn-primary rounded-pill mt-5">Start One Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}
+
+    <!-- Footer -->
+    <footer class="py-5 bg-black" style="width:100%">
+      <div class="container">
+        <p class="m-0 text-center text-white small">Copyright &copy; Myle-Post Solutions LTD {{'now'|date("Y")}}</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script type="text/javascript">
+        $(window).on('load',function(){
+            $('#page_modal').modal({backdrop: 'static', keyboard: false})              
+        });
+    </script>
+    <!--Start of Tawk.to Script-->
+	<script type="text/javascript">
+	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+	(function(){
+	var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+	s1.async=true;
+	s1.src='https://embed.tawk.to/570110863a48b09e318ec7fd/default';
+	s1.charset='UTF-8';
+	s1.setAttribute('crossorigin','*');
+	s0.parentNode.insertBefore(s1,s0);
+	})();
+	</script>
+	<!--End of Tawk.to Script-->
+    {% block javascripts %}{% endblock %}
+  </body>
+</html>

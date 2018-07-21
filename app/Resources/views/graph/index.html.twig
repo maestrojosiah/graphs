@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="modal modal-success fade" id="page_modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Your Graphs</h4>
+          </div>
+          <div class="modal-body">
+            {% if graphs|length > 0 %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Y Title</th>
+                        <th>X Title</th>
+                        <th>Y Interval</th>
+                        <th>Grouping</th>
+                        <th>Max Figure</th>
+                        <th>X Label Spacing</th>
+                        <th>X Label Angle</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for graph in graphs %}
+                    <tr>
+                        <td><a href="{{ path('graph_show', { 'id': graph.id }) }}">{{ graph.id }}</a></td>
+                        <td>{{ graph.title }}</td>
+                        <td>{{ graph.yAxisTitle }}</td>
+                        <td>{{ graph.xAxisTitle }}</td>
+                        <td>{{ graph.xInterval }}</td>
+                        <td>{{ graph.grouping }}</td>
+                        <td>{{ graph.maximum }}</td>
+                        <td>{{ graph.xLabelHeight }}</td>
+                        <td>{{ graph.angle }}</td>
+                        <td>
+                        <div class="btn-group" role="group" aria-label="Action">
+                            <a class="btn btn-primary btn-sm" href="{{ path('graph_show', { 'id': graph.id }) }}">details</a>
+                            <a class="btn btn-info btn-sm" href="{{ path('graph_edit', { 'id': graph.id }) }}">edit</a>
+                            <a class="btn btn-success btn-sm" href="{{ path('graphs_show', { 'graph_id': graph.id }) }}">graphs</a>
+                        </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>You don't have any graphs yet :(</p>
+            {% endif %}
+            {% include 'templates/links.html.twig' %}
+            <a href="{{ path('graph_new') }}" class="btn btn-primary">Create a new graph</a>
+          </div>
+          <div class="modal-footer">
+            <p>Your graphs.</p>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>    
+
+{% endblock %}
