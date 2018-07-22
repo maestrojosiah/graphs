@@ -75,7 +75,7 @@ class DisplayController extends Controller
 	        } else if($format == 'img') {
 	            $appPath = $this->container->getParameter('kernel.root_dir');
 
-	            $html = $this->renderView('AppBundle::Display/doc.html.twig', $data);
+	            $html = $this->renderView('AppBundle::Display/img.html.twig', $data);
 
 	            $filename = sprintf("{$graph_title}-%s.jpg", date('Ymd~his'));
 

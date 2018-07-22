@@ -6,8 +6,20 @@
 {% set container_bottom_margin = graph.xLabelHeight + 100 %}
 {% set label_height = graph.xLabelHeight + 10 %}
 <style>
+.keep-together {
+    page-break-inside: avoid;
+}
+
+.break-before {
+    page-break-before: always;
+}
+
+.break-after {
+    page-break-after: always;
+}
+
 /****************************vertical bar graph styles ******************************/
-.chart{position:relative;width:500px;height:250px}.hold,.pie{height:200px;width:200px;position:absolute}.hold{clip:rect(0,200px,200px,100px);left:300px}.pie{clip:rect(0,100px,200px,0);-moz-border-radius:100px;-webkit-border-radius:100px;border-radius:100px}.hold.gt50{clip:rect(auto,auto,auto,auto)}.pie.fill{-moz-transform:rotate(180deg)!important;-webkit-transform:rotate(180deg)!important;-o-transform:rotate(180deg)!important;transform:rotate(180deg)!important}.legend{clear:left;float:left;font-size:12px;border:2px solid grey;padding:5px;width:200px}.legend DIV{margin:3px 0}.legend span{float:right;padding-left:.5em}body{display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:fira-sans-2,Verdana,sans-serif}#q-graph caption{caption-side:top;width:600px;text-transform:uppercase;letter-spacing:.5px;top:-40px;position:relative;z-index:10;font-weight:700;text-align:center!important}#q-graph td,#q-graph th,#q-graph tr{position:absolute;bottom:0;width:150px;z-index:2;margin:0;padding:0;text-align:center}#q-graph td{transition:all .3s ease}#q-graph td:hover{background-color:#4d4d4d;opacity:.9;color:#fff}#q-graph thead tr{left:100%;top:50%;bottom:auto;margin:-2.5em 0 0 5em}#q-graph thead th{width:7.5em;height:auto;padding:.5em 1em}#q-graph thead th.sent{top:0;left:0;line-height:2}#q-graph thead th.paid{top:2.75em;line-height:2;left:0}#q-graph #q1{left:0}#q-graph #q2{left:150px}#q-graph #q3{left:300px}#q-graph #q4{left:450px;border-right:none}#q-graph tbody th{bottom:-1.75em;vertical-align:top;font-weight:400;color:#333}#q-graph .bar{width:60px;border:1px solid;border-bottom:none;color:#000}#q-graph .bar p{margin:5px 0 0;padding:0;opacity:.4}#q-graph .paid,#q-graph .sent{border-color:transparent}#ticks .tick{position:relative;border-bottom:1px dotted #C4C4C4;width:600px}#ticks .tick p{position:absolute;left:-5em;top:-.8em;margin:0 0 0 .5em}
+.chart{position:relative;width:1000px;height:500px}.hold,.pie{height:300px;width:300px;position:absolute}.hold{clip:rect(0,300px,300px,150px);left:300px}.pie{clip:rect(0,150px,400px,0);-moz-border-radius:200px;-webkit-border-radius:200px;border-radius:200px}.hold.gt50{clip:rect(auto,auto,auto,auto)}.pie.fill{-moz-transform:rotate(180deg)!important;-webkit-transform:rotate(180deg)!important;-o-transform:rotate(180deg)!important;transform:rotate(180deg)!important}.legend{clear:left;float:left;font-size:12px;border:2px solid grey;padding:5px;width:250px}.legend DIV{margin:3px 0}.legend span{float:right;padding-left:.5em}body{display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:fira-sans-2,Verdana,sans-serif}#q-graph caption{caption-side:top;width:600px;text-transform:uppercase;letter-spacing:.5px;top:-40px;position:relative;z-index:10;font-weight:700;text-align:center!important}#q-graph td,#q-graph th,#q-graph tr{position:absolute;bottom:0;width:150px;z-index:2;margin:0;padding:0;text-align:center}#q-graph td{transition:all .3s ease}#q-graph td:hover{background-color:#4d4d4d;opacity:.9;color:#fff}#q-graph thead tr{left:100%;top:50%;bottom:auto;margin:-2.5em 0 0 5em}#q-graph thead th{width:7.5em;height:auto;padding:.5em 1em}#q-graph thead th.sent{top:0;left:0;line-height:2}#q-graph thead th.paid{top:2.75em;line-height:2;left:0}#q-graph #q1{left:0}#q-graph #q2{left:150px}#q-graph #q3{left:300px}#q-graph #q4{left:450px;border-right:none}#q-graph tbody th{bottom:-1.75em;vertical-align:top;font-weight:400;color:#333}#q-graph .bar{width:60px;border:1px solid;border-bottom:none;color:#000}#q-graph .bar p{margin:5px 0 0;padding:0;opacity:.4}#q-graph .paid,#q-graph .sent{border-color:transparent}#ticks .tick{position:relative;border-bottom:1px dotted #C4C4C4;width:600px}#ticks .tick p{position:absolute;left:-5em;top:-.8em;margin:0 0 0 .5em}
 .container {
     display:table-cell;
     position:relative;
@@ -17,8 +29,7 @@
     border-left: 2px solid black;
     border-bottom: 2px solid black;
     margin-left: 100px;
-    margin-top: 100px;
-    margin-bottom: {{container_bottom_margin}}px;
+    /*margin-bottom: {{container_bottom_margin}}px;*/
     display:inline-block;
     background: repeating-linear-gradient(to top, #ddd, #ddd 1px, #fff 1px, #fff 100px);
 }
@@ -154,6 +165,7 @@ html, body {
   width: 600px;
   height: {{table_height}}px;
   margin: 1.1em 0 0;
+  margin-bottom: -5px;
   padding: 0;
   background: transparent;
   font-size: 11px;
@@ -172,7 +184,7 @@ html, body {
   width: {{table_width}}px;
   height: 300px;
   z-index: 1;
-  margin-bottom: -300px;
+  /*margin-bottom: -100px;*/
   font-size: 10px;
   font-family: "fira-sans-2", Verdana, sans-serif;
 }
@@ -272,73 +284,22 @@ html, body {
 </style>
 </head>
 <body>
-
-      <div class="container">
-        <div id="title" style="float:right; margin-right:100px;">
-        <h3>{{graph.title}}</h3>
-        {% for timeline in timelines %}
-          {% if graph.grouping != 0 and loop.index0 < graph.grouping %}
-          <div class="circle" style="background-color:{{timeline.color}}; float:right; clear:right;"><p style="padding-left:35px; margin-top:-2px" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
-          {% elseif graph.grouping == 0 %}
-          <div class="circle" style="background-color:{{timeline.color}}; float:right; clear:right;"><p style="padding-left:35px; margin-top:-2px" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
-          {% endif %}
-        {% endfor %}
-        </div>
-        <div class="measure">
-          {% set interval = graph.xInterval %}
-          {% set steps = graph.maximum / interval %}
-          {% for i in 0..steps %}
-              {% set point = graph.xInterval * i %}
-              {% set point_mark = (100 * i)-60 %}
-              <span style="position:absolute; bottom:{{point_mark}}px; font-weight:bold">{{point}}</span>
-          {% endfor %}  
-        </div>
-      {% set move = 2 %}
-      {% for timeline in timelines %}
-        {% set relative_height = timeline.figure / graph.xInterval * 100 %}
-        <div class="bar" style="height:{{relative_height}}px; width:50px; background-color: {{timeline.color}}; position:absolute; bottom:0; left:{{move}}px!important;">
-          <p style="text-align:center; padding-top:10px;">{{timeline.figure}}</p>
-          <span class="rotate" style="position:absolute; bottom:-{{label_height}}px; font-weight:bold; text-align:center;"><p>{{timeline.description}}<p></span>
-        </div>
-        {% if graph.grouping != 0 and loop.index is divisible by(graph.grouping) %}
-          {% set move = move + 75 %}
-        {% else %}
-          {% set move = move + 55 %}
-        {% endif %}
-      {% endfor %}
-      </div>
-
-{# start horizontal bar graph #}
-
-<div style="background-color:white;">
-<dl>
-  <dt>
-    {{graph.title}}
-  </dt>
-  {% for timeline in timelines %}
-    <dd class="percentage percentage-{{timeline.figure|round}}"><span class="text">{{timeline.description}} [{{timeline.figure}}]</span></dd>
-  {% endfor %}
-</dl>
-</div>
-
-{# end horixontal bar graph #}
-
 {# start table bar graph #}
-<div style="margin-left:100px; margin-top:100px;">
+<div style="margin-left:100px;" class="break-after">
 <h4>{{graph.title}}</h4>
 <div id="key_div">
   {% for timeline in timelines %}
     {% if graph.grouping != 0 and loop.index0 < graph.grouping %}
-    <div class="circle" style="background-color:{{timeline.color}}; float:left; margin-right: 100px;"><p style="padding-left:35px; margin-top:-2px" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
+    <div class="circle" style="background-color:{{timeline.color}}; float:left; margin-right: 100px;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap;" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
     {% elseif graph.grouping == 0 %}
-    <div class="circle" style="background-color:{{timeline.color}}; float:left; margin-right: 100px;"><p style="padding-left:35px; margin-top:-2px" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
+    <div class="circle" style="background-color:{{timeline.color}}; float:left; margin-right: 100px;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap;" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
     {% endif %}
   {% endfor %}
 </div>
 <table id="q-graph">
 
 <tbody>
-{% set move = 2 %}
+{% if graph.grouping == 0 %}{% set move = -382 %}{% set desc = -252 %}{% else %}{% set move = 2 %}{% set desc = 130 %}{% endif %}
 {% set left = 0 %}
   {% for timeline in timelines %}
     {% if graph.grouping != 0 and loop.index is divisible by(graph.grouping) %}    
@@ -346,7 +307,7 @@ html, body {
     {% else %}
       <tr class="qtr" style="left:{{left}}px;">
     {% endif %}
-    <th class="rotate" style="width:0px; bottom:-{{graph.xLabelHeight}}px; left:20px;" scope="row"><p>{{timeline.description}}</p></th>
+    <th class="rotate" style="width:0px; bottom:-{{graph.xLabelHeight}}px; left:{{desc}}px;" scope="row"><p>{{timeline.description}}</p></th>
     {# the bars for the graph #}
     {% set relative_height = timeline.figure / graph.xInterval * 100 %}
     <td class="sent bar" style="left:{{move}}px!important; height:{{relative_height}}px; background-color: {{timeline.color}};"><p>{{timeline.figure}}</p></td>
@@ -369,13 +330,69 @@ html, body {
   {% set steps = graph.maximum / interval %}
   {% for i in steps..0 %}
       {% set point = graph.xInterval * i %}
-      {% set point_mark = (100 * i)-57 %}
+      {% set point_mark = (100 * i)-55 %}
       <div class="tick" style="height: 100px;{% if i == 0 %} border-bottom: none; {% endif %}"><p>{{point}}</p></div>
   {% endfor %}  
 
 </div>
 </div>
 {# end table bar graph #}
+
+{# start second bar graph #}
+
+  <div class="break-after">
+      <div class="container">
+        <div id="title" style="float:right; margin-right:100px;">
+        <h3>{{graph.title}}</h3>
+        {% for timeline in timelines %}
+          {% if graph.grouping != 0 and loop.index0 < graph.grouping %}
+          <div class="circle" style="background-color:{{timeline.color}}; float:right; clear:right;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap;" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
+          {% elseif graph.grouping == 0 %}
+          <div class="circle" style="background-color:{{timeline.color}}; float:right; clear:right;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap;" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
+          {% endif %}
+        {% endfor %}
+        </div>
+        <div class="measure">
+          {% set interval = graph.xInterval %}
+          {% set steps = graph.maximum / interval %}
+          {% for i in 0..steps %}
+              {% set point = graph.xInterval * i %}
+              {% set point_mark = (100 * i)-60 %}
+              <span style="position:absolute; bottom:{{point_mark}}px; font-weight:bold">{{point}}</span>
+          {% endfor %}  
+        </div>
+      {% set move = 2 %}
+      {% for timeline in timelines %}
+        {% set relative_height = timeline.figure / graph.xInterval * 100 %}
+        <div class="bar" style="height:{{relative_height}}px; width:50px; background-color: {{timeline.color}}; position:absolute; bottom:0; left:{{move}}px!important;">
+          <p style="text-align:center; padding-top:10px;">{{timeline.figure}}</p>
+          <span class="rotate" style="position:absolute; bottom:-{{label_height}}px; font-weight:bold; text-align:center;"><p>{{timeline.description}}</p></span>
+        </div>
+        {% if graph.grouping != 0 and loop.index is divisible by(graph.grouping) %}
+          {% set move = move + 75 %}
+        {% else %}
+          {% set move = move + 55 %}
+        {% endif %}
+      {% endfor %}
+      </div>
+  </div>
+
+{# end second bar graph #}
+
+{# start horizontal bar graph #}
+
+<div class="break-after" style="background-color:white;">
+<dl>
+  <dt>
+    {{graph.title}}
+  </dt>
+  {% for timeline in timelines %}
+    <dd class="percentage percentage-{{timeline.figure|round}}"><span class="text">{{timeline.description}} [{{timeline.figure}}]</span></dd>
+  {% endfor %}
+</dl>
+</div>
+
+{# end horixontal bar graph #}
 
 {# start pie chart #}
 
@@ -387,7 +404,7 @@ html, body {
     {% for timeline in chunked_timeline %} 
       {% set sum = sum + timeline.figure %} 
     {% endfor %}
-  <div class="chart">
+  <div class="chart break-after">
     <h2>Group {{index}}:  ____________</h2>
     <div class="legend">
     {% for timeline in chunked_timeline %}  
@@ -396,8 +413,10 @@ html, body {
     {% endfor %}
     </div>
   {% for timeline in chunked_timeline %}  
-    <div id="g_{{timeline.id}}_{{index}}" class="hold">
+    {% set degree = timeline.figure / score['score'] * 360 %}
+    <div id="g_{{timeline.id}}_{{index}}" class="hold {% if degree > 180 %} gt50 {% endif %}">
       <div class="pie"></div>
+      {% if degree > 180 %}<div class="pie fill"></div>{% endif %}
     </div>
   {% endfor %}
   </div>
@@ -405,7 +424,7 @@ html, body {
 
 
 {# one pie chart #}
-<div class="chart">
+<div class="chart break-after">
   <h2>{{graph.title}}</h2>
   <div class="legend">
   {% for timeline in timelines %}  
@@ -414,8 +433,10 @@ html, body {
   {% endfor %}
   </div>
 {% for timeline in timelines %}  
-  <div id="p_{{timeline.id}}" class="hold">
+  {% set degree = timeline.figure / score['score'] * 360 %}
+  <div id="p_{{timeline.id}}" class="hold {% if degree > 180 %} gt50 {% endif %}">
     <div class="pie"></div>
+    {% if degree > 180 %}<div class="pie fill"></div>{% endif %}
   </div>
 {% endfor %}
 </div>

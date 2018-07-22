@@ -12,7 +12,6 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Title</th>
                         <th>Y Title</th>
                         <th>X Title</th>
@@ -27,7 +26,6 @@
                 <tbody>
                 {% for graph in graphs %}
                     <tr>
-                        <td><a href="{{ path('graph_show', { 'id': graph.id }) }}">{{ graph.id }}</a></td>
                         <td>{{ graph.title }}</td>
                         <td>{{ graph.yAxisTitle }}</td>
                         <td>{{ graph.xAxisTitle }}</td>

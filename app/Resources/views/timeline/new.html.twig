@@ -1,6 +1,16 @@
 
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
+<style type="text/css">
+.circle {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+.sp-replacer{
+  float:left;
+}
+</style>
 
  <link href="{{ asset('spectrum/spectrum.css') }}" rel="stylesheet">
 {% endblock %}
@@ -27,7 +37,28 @@
               <div class="form-group">
                 <label>Color</label>
                 {{ form_row(form.color, {'attr': {'class': 'form-control', 'placeholder': 'Type a color name or pick below',  'aria-describedby':'helpBlockColor' }}) }}
-                <p class="help-block" id="helpBlockColor">What color would you like to represent this entry?</p>
+                  {% for timeline in timelines %}
+                    {% if graph.grouping != 0 and loop.index0 < graph.grouping %}
+                      <span class="circle" style="cursor: pointer; background-color:{{timeline.color}}; float:left; margin: 4px;" 
+                        onClick="(function(){
+                            document.getElementById('appbundle_timeline_color').value='{{timeline.color}}';
+                            document.getElementsByClassName('sp-input').value='{{timeline.color}}';
+                            return false;
+                        })();return false;"
+                        ></span>
+                    {% elseif graph.grouping == 0 %}
+                      <span class="circle" style="cursor: pointer; background-color:{{timeline.color}}; float:left; margin: 4px;" 
+                        onClick="(function(){
+                            document.getElementById('appbundle_timeline_color').value='{{timeline.color}}';
+                            document.getElementsByClassName('sp-input').value='{{timeline.color}}';
+                            return false;
+                        })();return false;"
+                        ></span>
+                    {% endif %}
+                  {% endfor %}<br />             
+                <p class="help-block" id="helpBlockColor" style="clear:both;">
+                  Choose a color for this entry. Chosen so far: 
+                </p>
               </div>
               <button type="submit" class="btn btn-default">Create Entry</button>
             {{ form_end(form) }}

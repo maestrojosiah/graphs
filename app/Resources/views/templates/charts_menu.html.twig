@@ -4,9 +4,12 @@
   <a href="{{path('graphs_show', {'graph_id': graph.id, 'which': 'pie'})}}" class="list-group-item list-group-item-action {% if which == 'pie' %} active {% endif %}">Pie Chart</a>
   <a href="{{path('graphs_show', {'graph_id': graph.id, 'which': 'horiz'})}}" class="list-group-item list-group-item-action {% if which == 'horiz' %} active {% endif %}">Horizontal Bar Graph</a>
   <hr />
+  <a href="{{path('homepage')}}" class="list-group-item list-group-item-action">Home</a>
   <a href="{{path('graph_index')}}" class="list-group-item list-group-item-action">My Graphs</a>
   <a href="{{path('graph_new')}}" class="list-group-item list-group-item-action">Make Another Graph</a>
   <a href="{{path('graph_edit', {'id': graph.id})}}" class="list-group-item list-group-item-action">Edit This Graph</a>
+  <a href="{{path('timeline_new', {'graph_id': graph.id})}}" class="list-group-item list-group-item-action">Add More Entries to Graph</a>
   <a href="{{path('timeline_index', {'graph_id': graph.id})}}" class="list-group-item list-group-item-action">Entries For This Graph</a>
-  <a href="{{path('homepage')}}" class="list-group-item list-group-item-action">Home</a>
+  <a href="{{path('graphs_show', {'graph_id': graph.id, 'p': 'pdf'})}}" class="list-group-item list-group-item-action btn btn-block btn-primary">Download PDF (All Graphs)</a>
+  <a href="{{path('graphs_show', {'graph_id': graph.id, 'p': 'img'})}}" class="list-group-item list-group-item-action btn btn-block btn-primary">Download Image (All Graphs)</a>
 </div>

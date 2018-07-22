@@ -48,6 +48,11 @@ class TimelineController extends Controller
         $timeline = new Timeline();
         $graph = $this->em()->getRepository('AppBundle:Graph')->find($graph_id);
         $user = $this->user();
+        $timelines = $this->em()->getRepository('AppBundle:Timeline')
+        ->findBy(
+            array('graph' => $graph),
+            array('id' => 'ASC')
+        );
         $timeline->setUser($user);
         $timeline->setGraph($graph);
         $form = $this->createForm('AppBundle\Form\TimelineType', $timeline);
@@ -64,6 +69,7 @@ class TimelineController extends Controller
         return $this->render('timeline/new.html.twig', array(
             'graph' => $graph,
             'timeline' => $timeline,
+            'timelines' => $timelines,
             'form' => $form->createView(),
         ));
     }

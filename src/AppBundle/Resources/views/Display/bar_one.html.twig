@@ -27,9 +27,9 @@
               <div id="key_div">
                 {% for timeline in timelines %}
                   {% if graph.grouping != 0 and loop.index0 < graph.grouping %}
-                  <div class="circle" style="background-color:{{timeline.color}}; float:left; margin-right: 100px;"><p style="padding-left:35px; margin-top:-2px" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
+                  <div class="circle" style="background-color:{{timeline.color}}; float:left; margin-right: 100px;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap;" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
                   {% elseif graph.grouping == 0 %}
-                  <div class="circle" style="background-color:{{timeline.color}}; float:left; margin-right: 100px;"><p style="padding-left:35px; margin-top:-2px" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
+                  <div class="circle" style="background-color:{{timeline.color}}; float:left; margin-right: 100px;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap;" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
                   {% endif %}
                 {% endfor %}
               </div>
