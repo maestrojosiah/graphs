@@ -6,13 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 class DisplayController extends Controller
 {
     /**
      * @Route("/show/{graph_id}/{which}", defaults={"which"="show"}, name="graphs_show")
      */
     public function showAction(Request $request, $graph_id, $which)
-    {
+    {   
+        ini_set('memory_limit', '-1');
     	$data = [];
     	$user = $this->user();
     	$graph = $this->em()->getRepository("AppBundle:Graph")->find($graph_id);
@@ -54,6 +56,14 @@ class DisplayController extends Controller
     	$data['score'] = $score;
     	$data['chunked_timelines'] = $chunked_timelines;
 
+        if($graph->getGrouping() > 0){
+            $orientation = "Landscape";
+            $zoom = 1;
+        } else {
+            $orientation = "Portrait";
+            $zoom = 1.5;
+        }
+        
     	if($request->query->get('p')){
     		$format = $request->query->get('p');
 	        if($format == 'pdf'){
@@ -64,7 +74,7 @@ class DisplayController extends Controller
 	            $filename = sprintf("{$graph_title}-%s.pdf", date('Ymd~his'));
 
 	            return new Response(
-	                $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('orientation'=>'Landscape')),
+	                $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('orientation'=>$orientation, 'zoom' => $zoom)),
 	                200,
 	                [
 	                    'Content-Type'        => 'application/pdf',

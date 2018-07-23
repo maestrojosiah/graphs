@@ -288,6 +288,7 @@ html, body {
 <div style="margin-left:100px;" class="break-after">
 <h4>{{graph.title}}</h4>
 <div id="key_div">
+  <div style="float:left; margin-right: 100px;"><span style="margin-top:-2px; white-space: nowrap; font-weight:bold;" >{{ graph.yAxisTitle }}:</span></div><br />             
   {% for timeline in timelines %}
     {% if graph.grouping != 0 and loop.index0 < graph.grouping %}
     <div class="circle" style="background-color:{{timeline.color}}; float:left; margin-right: 100px;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap;" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
@@ -299,7 +300,7 @@ html, body {
 <table id="q-graph">
 
 <tbody>
-{% if graph.grouping == 0 %}{% set move = -382 %}{% set desc = -252 %}{% else %}{% set move = 2 %}{% set desc = 130 %}{% endif %}
+{% if graph.grouping == 0 %}{% set move = 2 %}{% set desc = 122 %}{% else %}{% set move = 2 %}{% set desc = 130 %}{% endif %}
 {% set left = 0 %}
   {% for timeline in timelines %}
     {% if graph.grouping != 0 and loop.index is divisible by(graph.grouping) %}    
@@ -328,6 +329,7 @@ html, body {
 <div id="ticks">
   {% set interval = graph.xInterval %}
   {% set steps = graph.maximum / interval %}
+  <div class="tick" style="height: 40px; border-top: none; margin-top:-40px"><p>{{graph.xAxisTitle}}</p></div>                  
   {% for i in steps..0 %}
       {% set point = graph.xInterval * i %}
       {% set point_mark = (100 * i)-55 %}
@@ -341,9 +343,10 @@ html, body {
 {# start second bar graph #}
 
   <div class="break-after">
-      <div class="container">
+      <div class="container" style="margin-top:70px;">
         <div id="title" style="float:right; margin-right:100px;">
         <h3>{{graph.title}}</h3>
+        <div class="circle" style="float:right; clear:right;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap; font-weight:bold;" >{{ graph.yAxisTitle }}:</p></div>
         {% for timeline in timelines %}
           {% if graph.grouping != 0 and loop.index0 < graph.grouping %}
           <div class="circle" style="background-color:{{timeline.color}}; float:right; clear:right;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap;" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
@@ -355,17 +358,20 @@ html, body {
         <div class="measure">
           {% set interval = graph.xInterval %}
           {% set steps = graph.maximum / interval %}
+          {% set point_mark = 0 %}
           {% for i in 0..steps %}
               {% set point = graph.xInterval * i %}
               {% set point_mark = (100 * i)-60 %}
               <span style="position:absolute; bottom:{{point_mark}}px; font-weight:bold">{{point}}</span>
           {% endfor %}  
+          {% set title_point_mark = point_mark + 60 %}  
+          <span style="float:left; position:absolute; bottom:{{title_point_mark}}px; font-weight:bold">{{graph.xAxisTitle}}</span>
         </div>
       {% set move = 2 %}
       {% for timeline in timelines %}
         {% set relative_height = timeline.figure / graph.xInterval * 100 %}
         <div class="bar" style="height:{{relative_height}}px; width:50px; background-color: {{timeline.color}}; position:absolute; bottom:0; left:{{move}}px!important;">
-          <p style="text-align:center; padding-top:10px;">{{timeline.figure}}</p>
+          <section style="text-align:center; padding-top:5px;">{{timeline.figure}}</section>
           <span class="rotate" style="position:absolute; bottom:-{{label_height}}px; font-weight:bold; text-align:center;"><p>{{timeline.description}}</p></span>
         </div>
         {% if graph.grouping != 0 and loop.index is divisible by(graph.grouping) %}

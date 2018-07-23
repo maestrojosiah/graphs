@@ -22,6 +22,7 @@ class TimelineController extends Controller
      */
     public function indexAction($graph_id)
     {
+        ini_set('memory_limit', '-1');
         $em = $this->getDoctrine()->getManager();
         $graph = $em->getRepository('AppBundle:Graph')->find($graph_id);
 
@@ -45,6 +46,7 @@ class TimelineController extends Controller
      */
     public function newAction(Request $request, $graph_id)
     {
+        ini_set('memory_limit', '-1');
         $timeline = new Timeline();
         $graph = $this->em()->getRepository('AppBundle:Graph')->find($graph_id);
         $user = $this->user();
@@ -82,6 +84,7 @@ class TimelineController extends Controller
      */
     public function showAction(Timeline $timeline, $graph_id)
     {
+        ini_set('memory_limit', '-1');
         $deleteForm = $this->createDeleteForm($timeline);
         $graph = $this->em()->getRepository('AppBundle:Graph')->find($graph_id);
         return $this->render('timeline/show.html.twig', array(
@@ -99,6 +102,7 @@ class TimelineController extends Controller
      */
     public function editAction(Request $request, Timeline $timeline)
     {
+        ini_set('memory_limit', '-1');
         $deleteForm = $this->createDeleteForm($timeline);
         $editForm = $this->createForm('AppBundle\Form\TimelineType', $timeline);
         $editForm->handleRequest($request);
@@ -126,6 +130,7 @@ class TimelineController extends Controller
      */
     public function deleteAction(Request $request, Timeline $timeline)
     {
+        ini_set('memory_limit', '-1');
         $form = $this->createDeleteForm($timeline);
         $form->handleRequest($request);
 

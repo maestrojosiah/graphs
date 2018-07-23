@@ -22,6 +22,7 @@ class GraphController extends Controller
      */
     public function indexAction()
     {
+        ini_set('memory_limit', '-1');
         $user = $this->user();
         $em = $this->getDoctrine()->getManager();
 
@@ -44,6 +45,7 @@ class GraphController extends Controller
      */
     public function newAction(Request $request)
     {
+        ini_set('memory_limit', '-1');
         $graph = new Graph();
         $user = $this->user();
         $graph->setUser($user);
@@ -72,6 +74,7 @@ class GraphController extends Controller
      */
     public function showAction(Graph $graph)
     {
+        ini_set('memory_limit', '-1');
         $deleteForm = $this->createDeleteForm($graph);
 
         return $this->render('graph/show.html.twig', array(
@@ -88,6 +91,7 @@ class GraphController extends Controller
      */
     public function editAction(Request $request, Graph $graph)
     {
+        ini_set('memory_limit', '-1');
         $deleteForm = $this->createDeleteForm($graph);
         $editForm = $this->createForm('AppBundle\Form\GraphType', $graph);
         $editForm->handleRequest($request);
@@ -113,6 +117,7 @@ class GraphController extends Controller
      */
     public function deleteAction(Request $request, Graph $graph)
     {
+        ini_set('memory_limit', '-1');
         $form = $this->createDeleteForm($graph);
         $form->handleRequest($request);
 

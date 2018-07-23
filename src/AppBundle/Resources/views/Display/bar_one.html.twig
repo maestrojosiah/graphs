@@ -25,6 +25,7 @@
             <div style="margin-left:50px; margin-bottom:100px; height:100%;">
             <h4>{{graph.title}}</h4>
               <div id="key_div">
+                <div style="float:left; margin-right: 100px;"><span style="margin-top:-2px; white-space: nowrap; font-weight:bold;" >{{ graph.yAxisTitle }}:</span></div><br />             
                 {% for timeline in timelines %}
                   {% if graph.grouping != 0 and loop.index0 < graph.grouping %}
                   <div class="circle" style="background-color:{{timeline.color}}; float:left; margin-right: 100px;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap;" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
@@ -65,12 +66,12 @@
               <div id="ticks">
                 {% set interval = graph.xInterval %}
                 {% set steps = graph.maximum / interval %}
+                <div class="tick" style="height: 40px; border-top: none; margin-top:-40px"><p>{{graph.xAxisTitle}}</p></div>
                 {% for i in steps..0 %}
                     {% set point = graph.xInterval * i %}
                     {% set point_mark = (100 * i)-57 %}
                     <div class="tick" style="height: 100px;{% if i == 0 %} border-bottom: none; {% endif %}"><p>{{point}}</p></div>
-                {% endfor %}  
-
+                {% endfor %}                  
               </div>
             </div>
           </div>
@@ -79,7 +80,7 @@
 
           </div>
           <div class="modal-footer">
-            <p>Bar Char One.</p>
+            {% include 'templates/advert.html.twig' %}
           </div>
         </div>
         <!-- /.modal-content -->

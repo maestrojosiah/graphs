@@ -25,7 +25,7 @@ security:
             form_login:
                 login_path: login
                 check_path: login
-                default_target_path: /home
+                default_target_path: /
             logout:
                 path:   /logout
                 target: /login
@@ -36,6 +36,6 @@ security:
                 path:     /
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/home, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_USER }

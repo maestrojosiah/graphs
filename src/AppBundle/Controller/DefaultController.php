@@ -9,10 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/home", name="homepage")
+     * @Route("/", name="homepage")
      */
     public function indexAction(Request $request)
     {
+    	ini_set('memory_limit', '-1');
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig');
     }

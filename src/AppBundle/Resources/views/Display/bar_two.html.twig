@@ -26,6 +26,7 @@
 				<div id="title" style="float:right; margin-right:100px;">
 				<h3>{{graph.title}}</h3>
         		{# key for the colors #}
+		        <div class="circle" style="float:right; clear:right;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap; font-weight:bold;" >{{ graph.yAxisTitle }}:</p></div>
 		        {% for timeline in timelines %}
 		          {% if graph.grouping != 0 and loop.index0 < graph.grouping %}
 		          <div class="circle" style="background-color:{{timeline.color}}; float:right; clear:right;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap;" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
@@ -38,11 +39,14 @@
           			{# the left side measureline #}
 					{% set interval = graph.xInterval %}
 					{% set steps = graph.maximum / interval %}
+					{% set point_mark = 0 %}
 					{% for i in 0..steps %}
 					    {% set point = graph.xInterval * i %}
 					    {% set point_mark = (100 * i)-57 %}
 					    <span style="position:absolute; bottom:{{point_mark}}px; font-weight:bold">{{point}}</span>
-					{% endfor %}	
+					{% endfor %}
+					{% set title_point_mark = point_mark + 60 %}	
+					<span style="float:left; position:absolute; bottom:{{title_point_mark}}px; font-weight:bold">{{graph.xAxisTitle}}</span>
 				</div>
 			{% set move = 2 %}
 			{% for timeline in timelines %}
@@ -67,7 +71,7 @@
 
           </div>
           <div class="modal-footer">
-            <p>Bar Graph Two.</p>
+            {% include 'templates/advert.html.twig' %}
           </div>
         </div>
         <!-- /.modal-content -->
