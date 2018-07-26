@@ -45,6 +45,34 @@ class Graph
     /**
      * @var string
      *
+     * @ORM\Column(name="relation", type="string", length=255)
+     */
+    private $relation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="graph_groups", type="string", length=255)
+     */
+    private $graphGroups;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="show_groups", type="string", length=255)
+     */
+    private $showGroups;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="show_labels", type="string", length=255)
+     */
+    private $showLabels;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="x_interval", type="string", length=255)
      */
     private $xInterval;
@@ -76,6 +104,13 @@ class Graph
      * @ORM\Column(name="angle", type="string", length=255)
      */
     private $angle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="group_angle", type="string", length=255)
+     */
+    private $groupAngle;
 
     /**
      * @ORM\OneToMany(targetEntity="Timeline", mappedBy="graph")
@@ -357,5 +392,125 @@ class Graph
     public function getAngle()
     {
         return $this->angle;
+    }
+
+    /**
+     * Set relation
+     *
+     * @param string $relation
+     *
+     * @return Graph
+     */
+    public function setRelation($relation)
+    {
+        $this->relation = $relation;
+
+        return $this;
+    }
+
+    /**
+     * Get relation
+     *
+     * @return string
+     */
+    public function getRelation()
+    {
+        return $this->relation;
+    }
+
+    /**
+     * Set graphGroups
+     *
+     * @param string $graphGroups
+     *
+     * @return Graph
+     */
+    public function setGraphGroups($graphGroups)
+    {
+        $this->graphGroups = $graphGroups;
+
+        return $this;
+    }
+
+    /**
+     * Get graphGroups
+     *
+     * @return string
+     */
+    public function getGraphGroups()
+    {
+        return $this->graphGroups;
+    }
+
+    /**
+     * Set showGroups
+     *
+     * @param string $showGroups
+     *
+     * @return Graph
+     */
+    public function setShowGroups($showGroups)
+    {
+        $this->showGroups = $showGroups;
+
+        return $this;
+    }
+
+    /**
+     * Get showGroups
+     *
+     * @return string
+     */
+    public function getShowGroups()
+    {
+        return $this->showGroups;
+    }
+
+    /**
+     * Set showLabels
+     *
+     * @param string $showLabels
+     *
+     * @return Graph
+     */
+    public function setShowLabels($showLabels)
+    {
+        $this->showLabels = $showLabels;
+
+        return $this;
+    }
+
+    /**
+     * Get showLabels
+     *
+     * @return string
+     */
+    public function getShowLabels()
+    {
+        return $this->showLabels;
+    }
+
+    /**
+     * Set groupAngle
+     *
+     * @param string $groupAngle
+     *
+     * @return Graph
+     */
+    public function setGroupAngle($groupAngle)
+    {
+        $this->groupAngle = $groupAngle;
+
+        return $this;
+    }
+
+    /**
+     * Get groupAngle
+     *
+     * @return string
+     */
+    public function getGroupAngle()
+    {
+        return $this->groupAngle;
     }
 }

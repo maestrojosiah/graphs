@@ -64,8 +64,8 @@
             {{ form_end(form) }}
           </div>
           <div class="modal-footer">
-            <a href="{{path('graphs_show', {'graph_id': graph.id })}}" class="btn btn-primary btn-lg pull-left">See your graph</a>
-            <p>This is the last step. Add all your data.</p>
+            <a href="{{path('timeline_index', {'graph_id': graph.id})}}" class="btn btn-info btn-lg pull-left">All Entries Added</a>
+            <a href="{{path('graphs_show', {'graph_id': graph.id, 'which': 'bar_two' })}}" class="btn btn-primary btn-lg pull-left">See your graph</a>
           </div>
         </div>
         <!-- /.modal-content -->

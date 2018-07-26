@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class GraphType extends AbstractType
 {
@@ -21,7 +22,23 @@ class GraphType extends AbstractType
                 ->add('grouping', TextType::class, array('label' => false ))
                 ->add('maximum', TextType::class, array('label' => false ))
                 ->add('xLabelHeight', TextType::class, array('label' => false ))
-                ->add('angle', TextType::class, array('label' => false ));
+                ->add('angle', TextType::class, array('label' => false ))
+                ->add('groupAngle', TextType::class, array('label' => false ))
+                ->add('graphGroups', TextType::class, array('label' => false ))
+                ->add('showGroups', ChoiceType::class, array(
+                    'label' => false,
+                    'choices'  => array(
+                        'Yes' => 'yes',
+                        'No' => 'no',
+                    ),
+                ))
+                ->add('showLabels', ChoiceType::class, array(
+                    'label' => false,
+                    'choices'  => array(
+                        'Yes' => 'yes',
+                        'No' => 'no',
+                    ),
+                ));
     }
     
     /**

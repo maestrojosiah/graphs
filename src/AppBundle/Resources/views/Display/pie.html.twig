@@ -2,6 +2,7 @@
 
 {% block title %}Show Charts{% endblock %}
 {% block stylesheets %}
+  <link href="{{asset('css/pie.css')}}" rel="stylesheet">  
   <style type="text/css">
 #os-Win {
   margin-left:10px;
@@ -86,12 +87,13 @@
                 {% if graph.grouping != 0 %} <h5>In your settings, you grouped this graph. Here are the pie charts in groups.</h5>{% endif %}
                 {% for chunked_timeline in chunked_timelines %}
                   {% set index = loop.index %}
+                  {% set index0 = loop.index0 %}
                     {% set sum = 0 %}
                     {% for timeline in chunked_timeline %} 
                       {% set sum = sum + timeline.figure %} 
                     {% endfor %}
                   <div class="chart">
-                    <h2>Group {{index}}:  ____________</h2>
+                    <h2>{{index}} : {% if exam_array[index0] is defined %}{{exam_array[index0]}}{% endif %}</h2>
                     <div class="legend">
                     {% for timeline in chunked_timeline %}  
                       {% set degree = timeline.figure / sum * 360 %}

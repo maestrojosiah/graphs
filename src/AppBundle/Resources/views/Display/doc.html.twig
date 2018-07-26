@@ -26,8 +26,8 @@
     vertical-align:bottom;
     width: {{container_width}}px; 
     height: {{container_height}}px;
-    border-left: 2px solid black;
-    border-bottom: 2px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
     margin-left: 100px;
     /*margin-bottom: {{container_bottom_margin}}px;*/
     display:inline-block;
@@ -35,7 +35,8 @@
 }
 .bar {
     display: inline-block;
-    border:1px solid black; 
+    border:1px; 
+    border-color: transparent;
 }
 .measure{
   height:{{measure_height}}px;
@@ -284,61 +285,6 @@ html, body {
 </style>
 </head>
 <body>
-{# start table bar graph #}
-<div style="margin-left:100px;" class="break-after">
-<h4>{{graph.title}}</h4>
-<div id="key_div">
-  <div style="float:left; margin-right: 100px;"><span style="margin-top:-2px; white-space: nowrap; font-weight:bold;" >{{ graph.yAxisTitle }}:</span></div><br />             
-  {% for timeline in timelines %}
-    {% if graph.grouping != 0 and loop.index0 < graph.grouping %}
-    <div class="circle" style="background-color:{{timeline.color}}; float:left; margin-right: 100px;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap;" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
-    {% elseif graph.grouping == 0 %}
-    <div class="circle" style="background-color:{{timeline.color}}; float:left; margin-right: 100px;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap;" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
-    {% endif %}
-  {% endfor %}
-</div>
-<table id="q-graph">
-
-<tbody>
-{% if graph.grouping == 0 %}{% set move = 2 %}{% set desc = 122 %}{% else %}{% set move = 2 %}{% set desc = 130 %}{% endif %}
-{% set left = 0 %}
-  {% for timeline in timelines %}
-    {% if graph.grouping != 0 and loop.index is divisible by(graph.grouping) %}    
-      <tr class="qtr" style="left:{{left}}px; border-right: 1px dotted #C4C4C4; width:80px">
-    {% else %}
-      <tr class="qtr" style="left:{{left}}px;">
-    {% endif %}
-    <th class="rotate" style="width:0px; bottom:-{{graph.xLabelHeight}}px; left:{{desc}}px;" scope="row"><p>{{timeline.description}}</p></th>
-    {# the bars for the graph #}
-    {% set relative_height = timeline.figure / graph.xInterval * 100 %}
-    <td class="sent bar" style="left:{{move}}px!important; height:{{relative_height}}px; background-color: {{timeline.color}};"><p>{{timeline.figure}}</p></td>
-    {# divide into groups if settings demand #}
-    {% if graph.grouping != 0 and loop.index is divisible by(graph.grouping) %}
-      {% set move =  2 %}
-      {% set left = left + 90 %}
-    {% else %}
-      {% set move = move + 2 %}
-      {% set left = left + 62 %}
-    {% endif %}
-    </tr>
-  {% endfor %}  
-</tr>
-</tbody>
-</table>
-
-<div id="ticks">
-  {% set interval = graph.xInterval %}
-  {% set steps = graph.maximum / interval %}
-  <div class="tick" style="height: 40px; border-top: none; margin-top:-40px"><p>{{graph.xAxisTitle}}</p></div>                  
-  {% for i in steps..0 %}
-      {% set point = graph.xInterval * i %}
-      {% set point_mark = (100 * i)-55 %}
-      <div class="tick" style="height: 100px;{% if i == 0 %} border-bottom: none; {% endif %}"><p>{{point}}</p></div>
-  {% endfor %}  
-
-</div>
-</div>
-{# end table bar graph #}
 
 {# start second bar graph #}
 
@@ -346,12 +292,12 @@ html, body {
       <div class="container" style="margin-top:70px;">
         <div id="title" style="float:right; margin-right:100px;">
         <h3>{{graph.title}}</h3>
-        <div class="circle" style="float:right; clear:right;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap; font-weight:bold;" >{{ graph.yAxisTitle }}:</p></div>
+        <div class="circle" style="float:right; clear:right;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap; font-weight:bold;" >{{ graph.xAxisTitle }}:</p></div>
         {% for timeline in timelines %}
           {% if graph.grouping != 0 and loop.index0 < graph.grouping %}
-          <div class="circle" style="background-color:{{timeline.color}}; float:right; clear:right;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap;" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
+          <div class="circle" style="background-color:{{timeline.color}}; float:right; clear:right;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap;" >{{timeline.description}}</p></div>
           {% elseif graph.grouping == 0 %}
-          <div class="circle" style="background-color:{{timeline.color}}; float:right; clear:right;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap;" >{{timeline.description|replace({'[': "", ']': "", '6': ""})}}</p></div>
+          <div class="circle" style="background-color:{{timeline.color}}; float:right; clear:right;"><p style="padding-left:35px; margin-top:-2px; white-space: nowrap;" >{{timeline.description}}</p></div>
           {% endif %}
         {% endfor %}
         </div>
@@ -365,40 +311,45 @@ html, body {
               <span style="position:absolute; bottom:{{point_mark}}px; font-weight:bold">{{point}}</span>
           {% endfor %}  
           {% set title_point_mark = point_mark + 60 %}  
-          <span style="float:left; position:absolute; bottom:{{title_point_mark}}px; font-weight:bold">{{graph.xAxisTitle}}</span>
+          <span style="float:left; position:absolute; bottom:{{title_point_mark}}px; font-weight:bold">{{graph.yAxisTitle}}</span>
         </div>
-      {% set move = 2 %}
-      {% for timeline in timelines %}
-        {% set relative_height = timeline.figure / graph.xInterval * 100 %}
-        <div class="bar" style="height:{{relative_height}}px; width:50px; background-color: {{timeline.color}}; position:absolute; bottom:0; left:{{move}}px!important;">
-          <section style="text-align:center; padding-top:5px;">{{timeline.figure}}</section>
-          <span class="rotate" style="position:absolute; bottom:-{{label_height}}px; font-weight:bold; text-align:center;"><p>{{timeline.description}}</p></span>
+              {% set move = 2 %}
+              {% for timeline in timelines %}
+                  {# the bars for the graph #}
+                  {% set increased_xLabelHeight = graph.xlabelHeight %}
+                {% set relative_height = timeline.figure / graph.xInterval * 100 %}
+                <div class="bar" style="height:{{relative_height}}px; width:50px; background-color: {{timeline.color}}; position:absolute; bottom:0; left:{{move}}px!important;">
+                  <section style="text-align:center; padding-top:5px; font-size:10px;">{{timeline.figure}}</section>
+                  {% if graph.showLabels == 'yes' %}
+                    <span class="rotate" style="position:absolute; bottom:-{{increased_xLabelHeight}}px; text-align:center;"><p>{{timeline.description}}</p></span>
+                  {% endif %}
+                </div>
+                    {# divide into groups if settings demand #}
+                {% if graph.grouping != 0 and loop.index is divisible by(graph.grouping) %}
+                  {% set move = move + 72 %}
+                {% else %}
+                  {% set move = move + 52 %}
+                {% endif %}
+              {% endfor %}
+              {% if graph.showGroups == 'yes' %}
+                {% set move = 2 %}
+                {% if graph.showLabels == 'yes' %}{% set addition = graph.xLabelHeight %}{% else %}{% set addition = 0 %}{% endif %}
+                {% for exam in exam_array %}
+                    {% set increased_xLabelHeight = graph.xlabelHeight + addition %}
+                    {% set width = graph.grouping * 52 %}
+                    {% set movement = graph.grouping * 52 %}
+                {% if graph.grouping > 0 and loop.index0 < (graph.timelines|length / graph.grouping) %}
+                    {% set movement = movement + 20 %}
+                  <span class="rotate_group" style="width: {{width}}px; position:absolute; left:{{move}}px; bottom:-{{increased_xLabelHeight}}px; text-align:center;"><p>{{exam}}</p></span>
+                {% endif %}
+                {% set move = movement + move %}
+                {% endfor %}
+              {% endif %}
+            </div>
         </div>
-        {% if graph.grouping != 0 and loop.index is divisible by(graph.grouping) %}
-          {% set move = move + 75 %}
-        {% else %}
-          {% set move = move + 55 %}
-        {% endif %}
-      {% endfor %}
-      </div>
-  </div>
 
 {# end second bar graph #}
 
-{# start horizontal bar graph #}
-
-<div class="break-after" style="background-color:white;">
-<dl>
-  <dt>
-    {{graph.title}}
-  </dt>
-  {% for timeline in timelines %}
-    <dd class="percentage percentage-{{timeline.figure|round}}"><span class="text">{{timeline.description}} [{{timeline.figure}}]</span></dd>
-  {% endfor %}
-</dl>
-</div>
-
-{# end horixontal bar graph #}
 
 {# start pie chart #}
 
@@ -406,12 +357,13 @@ html, body {
 <div style="margin-left:100px; margin-top:300px;">
 {% for chunked_timeline in chunked_timelines %}
   {% set index = loop.index %}
+  {% set index0 = loop.index0 %}
     {% set sum = 0 %}
     {% for timeline in chunked_timeline %} 
       {% set sum = sum + timeline.figure %} 
     {% endfor %}
   <div class="chart break-after">
-    <h2>Group {{index}}:  ____________</h2>
+    <h2>{{index}} : {% if exam_array[index0] is defined %}{{exam_array[index0]}}{% endif %}</h2>
     <div class="legend">
     {% for timeline in chunked_timeline %}  
       {% set degree = timeline.figure / sum * 360 %}
@@ -448,4 +400,19 @@ html, body {
 </div>
 </div>
 {# end piechart #}
+{# start horizontal bar graph #}
+
+<div class="break-after" style="background-color:white;">
+<dl>
+  <dt>
+    {{graph.title}}
+  </dt>
+  {% for timeline in timelines %}
+    <dd class="percentage percentage-{{timeline.figure|round}}"><span class="text">{{timeline.description}} [{{timeline.figure}}]</span></dd>
+  {% endfor %}
+</dl>
+</div>
+
+{# end horixontal bar graph #}
+
 </body>

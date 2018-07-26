@@ -15,46 +15,62 @@ class DisplayController extends Controller
     public function showAction(Request $request, $graph_id, $which)
     {   
         ini_set('memory_limit', '-1');
-    	$data = [];
-    	$user = $this->user();
-    	$graph = $this->em()->getRepository("AppBundle:Graph")->find($graph_id);
-    	$graph_title = $graph->getTitle();
-    	$timelines = $this->em()->getRepository("AppBundle:Timeline")
-    		->findBy(
-    			array('graph' => $graph),
-    			array('id' => 'ASC')
-    		);
-    	$config = $this->em()->getRepository("AppBundle:Config")
-    		->findBy(
-    			array('user' => $user),
-    			array('id' => 'ASC'),
-    			1
-    		);
+        $data = [];
+        $user = $this->user();
+        $graph = $this->em()->getRepository("AppBundle:Graph")->find($graph_id);
+        $graph_title = $graph->getTitle();
+        $graph_relation = $graph->getRelation();
+        $exam_ids = $graph->getGraphGroups();
+        $split_exams = explode("|", $exam_ids);
+        $exam_array = [];
+        foreach($split_exams as $exam){
+            $exam_array[] = $exam;
+        }
+     
+        // if(count($exam_array) < (count($graph->getTimelines()) / $graph->getGrouping())){
+        //     $this->addFlash(
+        //         'notice',
+        //         'Please add groups!'
+        //     );
+        //     return $this->redirectToRoute('graph_edit', [ 'id' => $graph->getId() ]);
+        // }
+        $timelines = $this->em()->getRepository("AppBundle:Timeline")
+            ->findBy(
+                array('graph' => $graph),
+                array('id' => 'ASC')
+            );
+        $config = $this->em()->getRepository("AppBundle:Config")
+            ->findBy(
+                array('user' => $user),
+                array('id' => 'ASC'),
+                1
+            );
 
-    	if($graph->getGrouping() != 0) {
-    		$chunked_timelines = array_chunk($timelines, $graph->getGrouping());
-    	} else {
-    		$chunked_timelines = NULL;
-    	}
+        if($graph->getGrouping() != 0) {
+            $chunked_timelines = array_chunk($timelines, $graph->getGrouping());
+        } else {
+            $chunked_timelines = NULL;
+        }
 
-		$qb = $this->em()->createQueryBuilder();
-		$qb = $qb
-		->select( 'SUM(e.figure) as score' )
-		->from( 'AppBundle:Timeline', 'e' )
-		->where( $qb->expr()->andX(
-			$qb->expr()->eq( 'e.graph', ':graph' )
-			) )
-		->setParameter( 'graph', $graph->getId() )
-		->getQuery()
-		;
+        $qb = $this->em()->createQueryBuilder();
+        $qb = $qb
+        ->select( 'SUM(e.figure) as score' )
+        ->from( 'AppBundle:Timeline', 'e' )
+        ->where( $qb->expr()->andX(
+            $qb->expr()->eq( 'e.graph', ':graph' )
+            ) )
+        ->setParameter( 'graph', $graph->getId() )
+        ->getQuery()
+        ;
 
-		$score = $qb->getOneOrNullResult();
+        $score = $qb->getOneOrNullResult();
 
-		$data['timelines'] = $timelines;
-    	$data['graph'] = $graph;
-    	$data['config'] = $config;
-    	$data['score'] = $score;
-    	$data['chunked_timelines'] = $chunked_timelines;
+        $data['timelines'] = $timelines;
+        $data['graph'] = $graph;
+        $data['config'] = $config;
+        $data['score'] = $score;
+        $data['chunked_timelines'] = $chunked_timelines;
+        $data['exam_array'] = $exam_array;
 
         if($graph->getGrouping() > 0){
             $orientation = "Landscape";
@@ -64,43 +80,43 @@ class DisplayController extends Controller
             $zoom = 1.5;
         }
         
-    	if($request->query->get('p')){
-    		$format = $request->query->get('p');
-	        if($format == 'pdf'){
-	            $appPath = $this->container->getParameter('kernel.root_dir');
+        if($request->query->get('p')){
+            $format = $request->query->get('p');
+            if($format == 'pdf'){
+                $appPath = $this->container->getParameter('kernel.root_dir');
 
-	            $html = $this->renderView('AppBundle::Display/doc.html.twig', $data);
+                $html = $this->renderView('AppBundle::Display/doc.html.twig', $data);
 
-	            $filename = sprintf("{$graph_title}-%s.pdf", date('Ymd~his'));
+                $filename = sprintf("{$graph_title}-%s.pdf", date('Ymd~his'));
 
-	            return new Response(
-	                $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('orientation'=>$orientation, 'zoom' => $zoom)),
-	                200,
-	                [
-	                    'Content-Type'        => 'application/pdf',
-	                    'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
-	                ]
-	            );
+                return new Response(
+                    $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('orientation'=>$orientation, 'zoom' => $zoom)),
+                    200,
+                    [
+                        'Content-Type'        => 'application/pdf',
+                        'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+                    ]
+                );
 
-	        } else if($format == 'img') {
-	            $appPath = $this->container->getParameter('kernel.root_dir');
+            } else if($format == 'img') {
+                $appPath = $this->container->getParameter('kernel.root_dir');
 
-	            $html = $this->renderView('AppBundle::Display/img.html.twig', $data);
+                $html = $this->renderView('AppBundle::Display/img.html.twig', $data);
 
-	            $filename = sprintf("{$graph_title}-%s.jpg", date('Ymd~his'));
+                $filename = sprintf("{$graph_title}-%s.jpg", date('Ymd~his'));
 
-	            return new Response(
-	                $this->get('knp_snappy.image')->getOutputFromHtml($html),
-	                200,
-	                [
-	                    'Content-Type'        => 'image/jpg',
-	                    'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
-	                ]
-	            );
+                return new Response(
+                    $this->get('knp_snappy.image')->getOutputFromHtml($html, array('zoom' => 2)),
+                    200,
+                    [
+                        'Content-Type'        => 'image/jpg',
+                        'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+                    ]
+                );
 
-	        }
+            }
 
-    	} else {
+        } else {
 
             switch ($which) {
                 case 'bar_one':
@@ -120,7 +136,7 @@ class DisplayController extends Controller
                     break;
             }
         $data['which'] = $which;
-    	return $this->render("AppBundle:Display:$page.html.twig", $data);
+        return $this->render("AppBundle:Display:$page.html.twig", $data);
       }
         
     } 

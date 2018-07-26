@@ -15,7 +15,7 @@
               </div>
               <div class="form-group">
                 <label>Y-Axis Title</label>
-                {{ form_row(edit_form.xAxisTitle, {'attr': {'class': 'form-control, has-success', 'placeholder': 'e.g Exam Scores',  'aria-describedby':'helpBlockYTitle' }}) }}
+                {{ form_row(edit_form.xAxisTitle, {'attr': {'class': 'form-control', 'placeholder': 'e.g Exam Scores',  'aria-describedby':'helpBlockYTitle' }}) }}
                 <p class="help-block" id="helpBlockYTitle">What would you like to be displayed on the vertical line (y-axis)?</p>
               </div>
               <div class="form-group">
@@ -30,7 +30,7 @@
               </div>
               <div class="form-group">
                 <label>Grouping</label>
-                {{ form_row(edit_form.grouping, {'attr': {'class': 'form-control', 'placeholder': 'Eg. 4', 'value': '0',  'aria-describedby':'helpBlockGrouping' }}) }}
+                {{ form_row(edit_form.grouping, {'attr': {'class': 'form-control', 'placeholder': 'Eg. 4', 'aria-describedby':'helpBlockGrouping' }}) }}
                 <p class="help-block" id="helpBlockGrouping">Would you like to group your graph into portions? if not, '0' is ok.</p>
               </div>
               <div class="form-group">
@@ -40,13 +40,33 @@
               </div>
               <div class="form-group">
                 <label>X-Axis Label Height</label>
-                {{ form_row(edit_form.xLabelHeight, {'attr': {'class': 'form-control', 'placeholder': 'X-Axis Label Height', 'value': '80',  'aria-describedby':'helpBlockXHeight' }}) }}
+                {{ form_row(edit_form.xLabelHeight, {'attr': {'class': 'form-control', 'placeholder': 'X-Axis Label Height',  'aria-describedby':'helpBlockXHeight' }}) }}
                 <p class="help-block" id="helpBlockXHeight">You need some spacing below the graph? Not sure? leave it at 80.</p>
               </div>
               <div class="form-group">
                 <label>X-Axis Incline Angle</label>
-                {{ form_row(edit_form.angle, {'attr': {'class': 'form-control', 'placeholder': 'X-Axis Incline Angle', 'value': '70',  'aria-describedby':'helpBlockXIncline' }}) }}
+                {{ form_row(edit_form.angle, {'attr': {'class': 'form-control', 'placeholder': 'X-Axis Incline Angle',  'aria-describedby':'helpBlockXIncline' }}) }}
                 <p class="help-block" id="helpBlockXIncline">Would you like to rotate the x-axis angle? Try 70 or 0 for no rotation</p>
+              </div>
+              <div class="form-group">
+                <label>Group Label Angle</label>
+                {{ form_row(edit_form.groupAngle, {'attr': {'class': 'form-control', 'placeholder': 'Group Label Incline Angle',  'aria-describedby':'helpBlockXIncline' }}) }}
+                <p class="help-block" id="helpBlockXIncline">Would you like to rotate the x-axis group label angle? Try 70 or 0 for no rotation</p>
+              </div>
+              <div class="form-group">
+                <label>Show Groups</label>
+                {{ form_row(edit_form.showGroups, {'attr': {'class': 'form-control', 'aria-describedby':'helpBlockXIncline' }}) }}
+                <p class="help-block" id="helpBlockXIncline">Would you like the group titles to be displayed?</p>
+              </div>
+              <div class="form-group">
+                <label>Show X Labels</label>
+                {{ form_row(edit_form.showLabels, {'attr': {'class': 'form-control', 'aria-describedby':'helpBlockXIncline' }}) }}
+                <p class="help-block" id="helpBlockXIncline">Would you like the x labels to be displayed?</p>
+              </div>
+              <div class="form-group">
+                <label>Groups</label>
+                {{ form_row(edit_form.graphGroups, {'attr': {'class': 'form-control', 'placeholder': 'eg. First Term | Second Term | bla bla',  'aria-describedby':'helpBlockXIncline' }}) }}
+                <p class="help-block" id="helpBlockXIncline">Write the groups seperated by pipe | or leave empty if no groups.?</p>
               </div>
               <button type="submit" class="btn btn-default">Edit Graph</button>
             {{ form_end(edit_form) }}

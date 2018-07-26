@@ -1,6 +1,6 @@
 <div class="list-group col-md-3">
-  <a href="{{path('graphs_show', {'graph_id': graph.id, 'which': 'bar_one'})}}" class="list-group-item list-group-item-action {% if which == 'bar_one' %} active {% endif %}">Bar Graph One</a>
-  <a href="{{path('graphs_show', {'graph_id': graph.id, 'which': 'bar_two'})}}" class="list-group-item list-group-item-action {% if which == 'bar_two' %} active {% endif %}">Bar Graph Two</a>
+  {# <a href="{{path('graphs_show', {'graph_id': graph.id, 'which': 'bar_one'})}}" class="list-group-item list-group-item-action {% if which == 'bar_one' %} active {% endif %}">Bar Graph One</a> #}
+  <a href="{{path('graphs_show', {'graph_id': graph.id, 'which': 'bar_two'})}}" class="list-group-item list-group-item-action {% if which == 'bar_two' %} active {% endif %}">Bar Graph</a>
   <a href="{{path('graphs_show', {'graph_id': graph.id, 'which': 'pie'})}}" class="list-group-item list-group-item-action {% if which == 'pie' %} active {% endif %}">Pie Chart</a>
   <a href="{{path('graphs_show', {'graph_id': graph.id, 'which': 'horiz'})}}" class="list-group-item list-group-item-action {% if which == 'horiz' %} active {% endif %}">Horizontal Bar Graph</a>
   <hr />

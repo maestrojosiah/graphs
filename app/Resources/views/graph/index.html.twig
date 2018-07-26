@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<body>
     <div class="modal modal-success fade" id="page_modal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -38,7 +39,7 @@
                         <div class="btn-group" role="group" aria-label="Action">
                             <a class="btn btn-primary btn-sm" href="{{ path('graph_show', { 'id': graph.id }) }}">details</a>
                             <a class="btn btn-info btn-sm" href="{{ path('graph_edit', { 'id': graph.id }) }}">edit</a>
-                            <a class="btn btn-success btn-sm" href="{{ path('graphs_show', { 'graph_id': graph.id }) }}">graphs</a>
+                            <a class="btn btn-success btn-sm" href="{{ path('graphs_show', { 'graph_id': graph.id, 'which': 'bar_two'  }) }}">graphs</a>
                         </div>
                         </td>
                     </tr>
